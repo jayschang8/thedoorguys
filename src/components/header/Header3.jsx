@@ -1,13 +1,13 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useEffect, useReducer, useRef } from "react";
+import Link from "next/link"
+import { useRouter } from "next/router"
+import React, { useEffect, useReducer, useRef } from "react"
 
 const initialState = {
   activeMenu: "",
   activeSubMenu: "",
   isSidebarOpenMenu: false,
   isLeftSidebarOpen: false,
-};
+}
 
 function reducer(state, action) {
   switch (action.type) {
@@ -18,61 +18,61 @@ function reducer(state, action) {
         activeMenu: state.activeMenu === action.menu ? "" : action.menu,
         activeSubMenu:
           state.activeMenu === action.menu ? state.activeSubMenu : "",
-      };
+      }
     case "TOGGLE_SUB_MENU":
       return {
         ...state,
         activeSubMenu:
           state.activeSubMenu === action.subMenu ? "" : action.subMenu,
-      };
+      }
     case "TOGGLE_SIDEBAR_MENU":
       return {
         ...state,
         isSidebarOpenMenu: !state.isSidebarOpenMenu,
-      };
+      }
     case "setScrollY":
-      return { ...state, scrollY: action.payload };
+      return { ...state, scrollY: action.payload }
     case "TOGGLE_LEFT_SIDEBAR":
       return {
         ...state,
         isLeftSidebarOpen: !state.isLeftSidebarOpen,
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
 
 function Header3() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const headerRef = useRef(null);
+  const [state, dispatch] = useReducer(reducer, initialState)
+  const headerRef = useRef(null)
   const handleScroll = () => {
-    const { scrollY } = window;
-    dispatch({ type: "setScrollY", payload: scrollY });
-  };
-  const currentRoute = useRouter().pathname;
+    const { scrollY } = window
+    dispatch({ type: "setScrollY", payload: scrollY })
+  }
+  const currentRoute = useRouter().pathname
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll)
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
 
   const toggleMenu = (menu) => {
-    dispatch({ type: "TOGGLE_MENU", menu });
-  };
+    dispatch({ type: "TOGGLE_MENU", menu })
+  }
 
   const toggleSubMenu = (subMenu) => {
-    dispatch({ type: "TOGGLE_SUB_MENU", subMenu });
-  };
+    dispatch({ type: "TOGGLE_SUB_MENU", subMenu })
+  }
 
   const toggleSidebarMenu = () => {
-    dispatch({ type: "TOGGLE_MENU", menu: "" });
-    dispatch({ type: "TOGGLE_SUB_MENU", subMenu: "" });
-    dispatch({ type: "TOGGLE_SIDEBAR_MENU" });
-  };
+    dispatch({ type: "TOGGLE_MENU", menu: "" })
+    dispatch({ type: "TOGGLE_SUB_MENU", subMenu: "" })
+    dispatch({ type: "TOGGLE_SIDEBAR_MENU" })
+  }
   const toggleLeftSidebar = () => {
-    dispatch({ type: "TOGGLE_LEFT_SIDEBAR" });
-  };
+    dispatch({ type: "TOGGLE_LEFT_SIDEBAR" })
+  }
 
   return (
     <>
@@ -83,7 +83,7 @@ function Header3() {
           <div className="sidebar-log">
             <Link legacyBehavior href="/">
               <a>
-                <img src="assets/img/logo.svg" alt="" />
+                <img src="assets/img/doorguys.png" alt="" />
               </a>
             </Link>
           </div>
@@ -107,8 +107,8 @@ function Header3() {
                 </div>
                 <div className="info">
                   <p>
-                    168/170, Avenue 01, Old York Drive Rich Mirpur DOHS,
-                    Bangladesh
+                    123 Main St
+                    <br /> Nashville, TN 00000
                   </p>
                 </div>
               </div>
@@ -136,7 +136,7 @@ function Header3() {
         </div>
         <div className="follow-area">
           <h5 className="blog-widget-title">Follow Us</h5>
-          <p className="para">Follow us on Social Network</p>
+          <p className="para">Follow us on Social Media</p>
           <div className="blog-widget-body">
             <ul className="follow-list d-flex flex-row align-items-start gap-4">
               <li>
@@ -174,7 +174,7 @@ function Header3() {
               <img
                 alt="image"
                 className="img-fluid"
-                src="assets/img/logo.svg"
+                src="assets/img/doorguys.png"
               />
             </a>
           </Link>
@@ -186,321 +186,23 @@ function Header3() {
             <div className="mobile-logo-wrap">
               <Link legacyBehavior href="/">
                 <a>
-                  <img alt="image" src="assets/img/logo.svg" />
+                  <img alt="image" src="assets/img/doorguys.png" />
                 </a>
               </Link>
             </div>
           </div>
           <ul className="menu-list">
-            <li className={`menu-item-has-children ${currentRoute === "/"?"active":""}`}>
-              <a
-                href="#"
-                className={`drop-down ${
-                  state.activeMenu === "home-one" ? "active" : ""
-                }`}
-                onClick={() => toggleMenu("home-one")}
-              >
-                Home
-              </a>
-              <i
-                className={`bi bi-plus dropdown-icon ${
-                  state.activeMenu === "home-one" ? "active" : ""
-                }`}
-                onClick={() => toggleMenu("home-one")}
-              />
-              <ul
-                className={`sub-menu ${
-                  state.activeMenu === "home-one" ? "d-block" : ""
-                }`}
-              >
-                <li>
-                  <Link legacyBehavior href="/">
-                    <a className={`menu-item-has-children ${currentRoute === "/"?"active":""}`}>Home 01</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/index2">
-                    <a>Home 02</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/index3">
-                    <a>Home 03</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/index4">
-                    <a>Home 04</a>
-                  </Link>
-                </li>
-              </ul>
+            <li className={`${currentRoute === "/" ? "active" : ""}`}>
+              <a href="/">Home</a>
             </li>
-            <li>
-              <Link legacyBehavior href="/about">
-                <a>About</a>
-              </Link>
+            <li className={`${currentRoute === "/about" ? "active" : ""}`}>
+              <a href="#">About</a>
             </li>
-            <li className="menu-item-has-children">
-              <a
-                href="#"
-                className={`drop-down ${
-                  state.activeMenu === "service" ? "active" : ""
-                }`}
-                onClick={() => toggleMenu("service")}
-              >
-                Service
-              </a>{" "}
-              <i
-                className={`bi bi-plus dropdown-icon ${
-                  state.activeMenu === "service" ? "active" : ""
-                }`}
-                onClick={() => toggleMenu("service")}
-              />
-              <ul
-                className={`sub-menu ${
-                  state.activeMenu === "service" ? "d-block" : ""
-                }`}
-              >
-                <li>
-                  <Link legacyBehavior href="/service">
-                    <a>Service 01</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/service2">
-                    <a>Service 02</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/service3">
-                    <a>Service 03</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/service4">
-                    <a>Service 04</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/service-details">
-                    <a>Service Details</a>
-                  </Link>
-                </li>
-              </ul>
+            <li className={`${currentRoute === "/about" ? "active" : ""}`}>
+              <a href="#">Our Services</a>
             </li>
-            <li className="menu-item-has-children">
-              <a href="#" className="drop-down">
-                Project
-              </a>
-              <i
-                className={`bi bi-plus dropdown-icon ${
-                  state.activeMenu === "project" ? "active" : ""
-                }`}
-                onClick={() => toggleMenu("project")}
-              />
-              <ul
-                className={`sub-menu ${
-                  state.activeMenu === "project" ? "d-block" : ""
-                }`}
-              >
-                <li>
-                  <Link legacyBehavior href="/project">
-                    <a>Project</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/project-masonary">
-                    <a>Project Masonry</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/project-details">
-                    <a>Project Details</a>
-                  </Link>
-                </li>
-              </ul>
-            </li>
-            <li className="menu-item-has-children">
-              <a href="#" className="drop-down">
-                Pages
-              </a>
-              <i
-                className={`bi bi-plus dropdown-icon ${
-                  state.activeMenu === "pages" ? "active" : ""
-                }`}
-                onClick={() => toggleMenu("pages")}
-              />
-              <ul
-                className={`sub-menu ${
-                  state.activeMenu === "pages" ? "d-block" : ""
-                }`}
-              >
-                <li>
-                  <Link legacyBehavior href="/team1">
-                    <a>Team</a>
-                  </Link>
-                 
-                  <i
-                    className={`bi bi-plus dropdown-icon ${
-                      state.activeSubMenu === "team" ? "active" : ""
-                    }`}
-                    onClick={() => toggleSubMenu("team")}
-                  />
-                  <ul
-                    className={`sub-menu ${
-                      state.activeSubMenu === "team" ? "d-block" : ""
-                    }`}
-                  >
-                    <li>
-                      <Link legacyBehavior href="/team1">
-                        <a>Team 01</a>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="/team2">
-                        <a>Team 02</a>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="/team3">
-                        <a>Team 03</a>
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/pricing">
-                    <a>Pricing</a>
-                  </Link>
-                  <i
-                    className={`bi bi-plus dropdown-icon ${
-                      state.activeSubMenu === "price" ? "active" : ""
-                    }`}
-                    onClick={() => toggleSubMenu("price")}
-                  />
-                  <ul
-                    className={`sub-menu ${
-                      state.activeSubMenu === "price" ? "d-block" : ""
-                    }`}
-                  >
-                    <li>
-                      <Link legacyBehavior href="/pricing">
-                        <a>Pricing 01</a>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="/pricing2">
-                        <a>Pricing 02</a>
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/contact">
-                    <a>Contact</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/faq">
-                    <a>FAQs</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/error">
-                    <a>Error 404</a>
-                  </Link>
-                </li>
-              </ul>
-            </li>
-            <li className="menu-item-has-children">
-              <a
-                href="#"
-                className={`drop-down ${
-                  state.activeMenu === "case" ? "active" : ""
-                }`}
-              >
-                Case Study
-              </a>
-              <i
-                className={`bi bi-plus dropdown-icon ${
-                  state.activeMenu === "case" ? "active" : ""
-                }`}
-                onClick={() => toggleMenu("case")}
-              />
-              <ul
-                className={`sub-menu ${
-                  state.activeMenu === "case" ? "d-block" : ""
-                }`}
-              >
-                <li>
-                  <Link legacyBehavior href="/case-study">
-                    <a>Case study 01</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/case-study2">
-                    <a>Case study 02</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/case-study-standard">
-                    <a>Case study standard</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/case-study-details">
-                    <a>Case study Details</a>
-                  </Link>
-                </li>
-              </ul>
-            </li>
-            <li className="menu-item-has-children">
-              <a
-                href="#"
-                className={`drop-down ${
-                  state.activeMenu === "blog" ? "active" : ""
-                }`}
-                onClick={() => toggleMenu("blog")}
-              >
-                Blog
-              </a>
-              <i
-                className={`bi bi-plus dropdown-icon ${
-                  state.activeMenu === "blog" ? "active" : ""
-                }`}
-                onClick={() => toggleMenu("blog")}
-              />
-              <ul
-                className={`sub-menu ${
-                  state.activeMenu === "blog" ? "d-block" : ""
-                }`}
-              >
-                <li>
-                  <Link legacyBehavior href="/blog">
-                    <a>Blog</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/blog-standard">
-                    <a>Blog standard</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/blog-sidebar">
-                    <a>Blog Sidebar</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/blog-masonary">
-                    <a>Blog Masonary</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/blog-details">
-                    <a>Blog Details</a>
-                  </Link>
-                </li>
-              </ul>
+            <li className={`${currentRoute === "/about" ? "active" : ""}`}>
+              <a href="#">Blog</a>
             </li>
           </ul>
           <div className="d-lg-none d-block">
@@ -547,7 +249,7 @@ function Header3() {
               </div>
             </form>
             <div className="header-btn5">
-              <Link legacyBehavior href="/contact">
+              <Link legacyBehavior href="#">
                 <a className="primary-btn3">Get A Quote</a>
               </Link>
             </div>
@@ -568,7 +270,7 @@ function Header3() {
         </div>
       </header>
     </>
-  );
+  )
 }
 
-export default Header3;
+export default Header3

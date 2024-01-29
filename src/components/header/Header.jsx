@@ -1,13 +1,13 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useEffect, useReducer, useRef } from "react";
+import Link from "next/link"
+import { useRouter } from "next/router"
+import React, { useEffect, useReducer, useRef } from "react"
 
 const initialState = {
   activeMenu: "",
   activeSubMenu: "",
   isSidebarOpen: false,
   isLeftSidebarOpen: false,
-};
+}
 
 function reducer(state, action) {
   switch (action.type) {
@@ -18,60 +18,60 @@ function reducer(state, action) {
         activeMenu: state.activeMenu === action.menu ? "" : action.menu,
         activeSubMenu:
           state.activeMenu === action.menu ? state.activeSubMenu : "",
-      };
+      }
     case "TOGGLE_SUB_MENU":
       return {
         ...state,
         activeSubMenu:
           state.activeSubMenu === action.subMenu ? "" : action.subMenu,
-      };
+      }
     case "TOGGLE_SIDEBAR":
       return {
         ...state,
         isSidebarOpen: !state.isSidebarOpen,
-      };
+      }
     case "setScrollY":
-      return { ...state, scrollY: action.payload };
+      return { ...state, scrollY: action.payload }
     case "TOGGLE_LEFT_SIDEBAR":
       return {
         ...state,
         isLeftSidebarOpen: !state.isLeftSidebarOpen,
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
 
 function Header() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const headerRef = useRef(null);
+  const [state, dispatch] = useReducer(reducer, initialState)
+  const headerRef = useRef(null)
   const handleScroll = () => {
-    const { scrollY } = window;
-    dispatch({ type: "setScrollY", payload: scrollY });
-  };
-  const currentRoute = useRouter().pathname;
+    const { scrollY } = window
+    dispatch({ type: "setScrollY", payload: scrollY })
+  }
+  const currentRoute = useRouter().pathname
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll)
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
 
   const toggleMenu = (menu) => {
-    dispatch({ type: "TOGGLE_MENU", menu });
-  };
+    dispatch({ type: "TOGGLE_MENU", menu })
+  }
 
   const toggleSubMenu = (subMenu) => {
-    dispatch({ type: "TOGGLE_SUB_MENU", subMenu });
-  };
+    dispatch({ type: "TOGGLE_SUB_MENU", subMenu })
+  }
   const toggleLeftSidebar = () => {
-    dispatch({ type: "TOGGLE_LEFT_SIDEBAR" });
-  };
+    dispatch({ type: "TOGGLE_LEFT_SIDEBAR" })
+  }
   const toggleSidebar = () => {
-    dispatch({ type: "TOGGLE_MENU", menu: "" });
-    dispatch({ type: "TOGGLE_SUB_MENU", subMenu: "" });
-    dispatch({ type: "TOGGLE_SIDEBAR" });
-  };
+    dispatch({ type: "TOGGLE_MENU", menu: "" })
+    dispatch({ type: "TOGGLE_SUB_MENU", subMenu: "" })
+    dispatch({ type: "TOGGLE_SIDEBAR" })
+  }
 
   return (
     <>
@@ -82,7 +82,7 @@ function Header() {
           <div className="sidebar-log">
             <Link legacyBehavior href="/">
               <a>
-                <img src="assets/img/logo.svg" alt="" />
+                <img src="assets/img/doorguys.png" alt="" />
               </a>
             </Link>
           </div>
@@ -172,7 +172,7 @@ function Header() {
               <img
                 alt="image"
                 className="img-fluid"
-                src="assets/img/logo.svg"
+                src="assets/img/doorguys.png"
               />
             </a>
           </Link>
@@ -182,7 +182,7 @@ function Header() {
             <div className="mobile-logo-wrap">
               <Link legacyBehavior href="/">
                 <a>
-                  <img alt="image" src="assets/img/logo.svg" />
+                  <img alt="image" src="assets/img/doorguys.png" />
                 </a>
               </Link>
             </div>
@@ -737,7 +737,7 @@ function Header() {
         </div>
       </header>
     </>
-  );
+  )
 }
 
-export default Header;
+export default Header
